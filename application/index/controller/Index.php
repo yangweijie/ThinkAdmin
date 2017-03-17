@@ -1,15 +1,18 @@
 <?php
-// +----------------------------------------------------------------------
-// | 海豚PHP框架 [ DolphinPHP ]
-// +----------------------------------------------------------------------
-// | 版权所有 2016~2017 河源市卓锐科技有限公司 [ http://www.zrthink.com ]
-// +----------------------------------------------------------------------
-// | 官方网站: http://dolphinphp.com
-// +----------------------------------------------------------------------
-// | 开源协议 ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
+/**
+ * 首页
+ *
+ * @category Controller
+ * @author   jay <917647288@qq.com>
+ * @license   MIT
+ * @link   http://url.com
+ * @package category
+ *
+ */
 
 namespace app\index\controller;
+
+use voku\CssToInlineStyles\CssToInlineStyles;
 
 /**
  * 前台首页控制器
@@ -17,12 +20,73 @@ namespace app\index\controller;
  */
 class Index extends Home
 {
+
+    // 老杨微信公众号文章编辑器——最好的公众号前端编辑器
     public function index()
     {
-        // 默认跳转模块
-        if (config('default_module') != 'index') {
-            $this->redirect(config('default_module'). '/index/index');
+        return $this->fetch('wechat_editor');
+    }
+
+    /**
+     * 返回css转行内工具的返回值
+     *
+     * @param array $param
+     * @return string
+     */
+    public function parse($html, $css, $param='')
+    {
+        config('trace.type', 'console');
+        $default = [
+            'cleanup'=>0,
+            'useInlineStylesBlock'=>0,
+            'stripOriginalStyleTags'=>0,
+            'excludeMediaQueries'=>1,
+            'excludeConditionalInlineStylesBlock'=>1,
+        ];
+        $param = $param? array_merge($default, $param): $default;
+
+        // The following properties exists and have set methods available:
+
+        // Property | Default | Description
+        // -------|---------|------------
+        // cleanup|false|Should the generated HTML be cleaned?
+        // useInlineStylesBlock|false|Use inline-styles block as CSS.
+        // stripOriginalStyleTags|false|Strip original style tags.
+        // excludeMediaQueries||true|Exclude media queries from extra "css" and keep media queries for inline-styles blocks.
+        // excludeConditionalInlineStylesBlock |true|Exclude conditional inline-style blocks.
+
+        // config('default_return_type', 'json');
+        if (empty($html)) {
+            goto render;
         }
-        return '<style type="text/css">*{ padding: 0; margin: 0; } .think_default_text{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:)</h1><p> DolphinPHP V1.0.0<br/><span style="font-size:30px">极速 · 极简 · 极致</span></p></div>';
+
+        // Convert HTML + CSS to HTML with inlined CSS
+        $cssToInlineStyles = new CssToInlineStyles();
+        $cssToInlineStyles->setHTML($html);
+        $cssToInlineStyles->setCSS($css);
+        if ($param['cleanup']) {
+            $cssToInlineStyles->setCleanup(true);
+        }
+        if ($param['useInlineStylesBlock']) {
+            $cssToInlineStyles->setUseInlineStylesBlock(true);
+        }
+        if ($param['stripOriginalStyleTags']) {
+            $cssToInlineStyles->setStripOriginalStyleTags(true);
+        }
+        if (!$param['excludeMediaQueries']) {
+            $cssToInlineStyles->setExcludeMediaQueries(false);
+        }
+        if (!$param['excludeConditionalInlineStylesBlock']) {
+            $cssToInlineStyles->setExcludeConditionalInlineStylesBlock(false);
+        }
+        $html = $cssToInlineStyles->convert();
+        render:
+        $this->assign('html', $html);
+        return $this->fetch('preview');
+    }
+
+    public function fb()
+    {
+        return $this->fetch();
     }
 }

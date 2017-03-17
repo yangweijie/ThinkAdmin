@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-focus" lang="zh">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>老杨微信公众号前端编辑器</title>
+    <meta name="author" content="yangweijie">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="__ADMIN_IMG__/favicons/favicon.ico">
+    <!-- END Icons -->
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="__STATIC__/libs/prism/prism.css">-->
+    <style>
+        fieldset {
+            display: inline;
+            width: 50%;
+        }
+    </style>
+    <!-- END Stylesheets -->
+    <script src="__STATIC__/admin/js/core/jquery.min.js"></script>
+    <script src="__STATIC__/admin/js/core/bootstrap.min.js"></script>
+    <!--<script src="__STATIC__/libs/prism/prism.js"></script>-->
+    <script src="__STATIC__/libs/vue.min.js"></script>
+    <script src="__STATIC__/libs/lodash.core.js"></script>
+    <script src="__STATIC__/libs/clipboard.min.js"></script>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-lg-6">
+                <form class="form-inline" name="parse" action="{:url('parse')}" target="afterParse">
+                    <fieldset>
+                        <legend>选项：</legend>
+                        <div>
+                            <div class="checkbox">
+                                <label>
+                                     <input type="checkbox" name="param[cleanup]" value="1" v-model="form.param.cleanup"> cleanup
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                     <input type="checkbox" name="param[useInlineStylesBlock]" value="1" v-model="form.param.useInlineStylesBlock"> useInlineStylesBlock
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                     <input type="checkbox" name="param[stripOriginalStyleTags]" value="1" v-model="form.param.stripOriginalStyleTags"> stripOriginalStyleTags
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                     <input type="checkbox" name="param[excludeMediaQueries]" value="1" v-model="form.param.excludeMediaQueries"> excludeMediaQueries
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                     <input type="checkbox" name="param[excludeConditionalInlineStylesBlock]" value="1" v-model="form.param.excludeConditionalInlineStylesBlock"> excludeConditionalInlineStylesBlock
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <legend>CSS样式：</legend>
+                        <div class="form-group">
+                            <textarea name="css" cols="80" rows="10" v-model="form.css"></textarea>
+                        </div>
+                        <legend>内容：</legend>
+                        <textarea name="html" cols="80" rows="10" v-model="form.html"></textarea>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-lg-6">
+               <div>
+                   <iframe src="{:url('parse')}" frameborder="0" name="afterParse" height="777" width="100%" id="afterParse"></iframe>
+                   <button id="copyBtn">复制代码</button>
+               </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                form: {
+                    param: {
+                        cleanup: false,
+                        useInlineStylesBlock: false,
+                        stripOriginalStyleTags: false,
+                        excludeMediaQueries: true,
+                        excludeConditionalInlineStylesBlock: true,
+                    },
+                    css: '',
+                    html: '',
+                },
+                afterParse: ''
+            },
+            beforeMount () {
+                // 读取本地缓存 刷新后还存在
+                var cache = localStorage.getItem('cache');
+                if(cache){
+                    this.form = JSON.parse(cache);
+                }
+            },
+            watch: {
+                form: {
+                    handler: function (newVal, oldVal) {
+                        var $form = $('[name=parse]');
+                        // $.post($form.attr('action'), app.form, function (response) {
+                        //     console.log(response);
+                        //     app.afterParse = response;
+                        // }, 'json');
+                        $form.submit();
+                        localStorage.setItem('cache', JSON.stringify(app.form));
+                    },
+                    deep: true
+                }
+            }
+        });
+
+    </script>
+
+     <script>
+            $(function(){
+                new Clipboard('#copyBtn', {
+                    text: function(trigger) {
+                        var inner = $($(document.getElementById('afterParse').contentWindow.document.body).html()).find('#js_content').html();
+                        console.log(inner);
+                        return inner;
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>
