@@ -41,6 +41,8 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="__STATIC__/libs/demo/bundle.js"></script>
     <script src="__STATIC__/libs/demo/0.js"></script>
+
+ <!--    <script src="__STATIC__/ueditor/demo/0.js"></script> -->
  <!--    <script src="__STATIC__/hint/codemirror.js"></script>
     <script src="__STATIC__/hint/css.js"></script>
     <script src="__STATIC__/hint/show-hint.js"></script>
@@ -141,8 +143,9 @@
                            <textarea v-model="form.css" style="display: none;" name="css"></textarea>
                         </div>
                         <h3>html内容：</h3>
-                           <codemirror :code="form.html" @changed="changed2" :options="options2"></codemirror>
+                          <script id="container" name="content" type="text/plain">dssdsd</script>
                         <textarea  v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
+                         <button onclick="getContent()">获得内容</button>
                     </fieldset>
                 </form>
             </div>
@@ -154,6 +157,11 @@
             </div>
         </div>
     </div>
+
+  
+    <script src="__STATIC__/ueditor/ueditor.config.js"></script>
+    <script src="__STATIC__/ueditor/ueditor.all.min.js"></script>
+
     <script>
 
       // var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -164,6 +172,7 @@
         var app = new Vue({
             el: '#app',
             data: {
+                code:"",
                 form: {
                     param: {
                         cleanup: false,
@@ -189,20 +198,6 @@
                     hintOptions:{
                         completeSingle: false
                     }
-                },
-                options2: {
-                    tabSize: 4,
-                    styleActiveLine: true,
-                    lineNumbers: true,
-                    line: true,
-                    foldGutter: true,
-                    styleSelectedText: false,
-                    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                    highlightSelectionMatches: { showToken: /w/, annotateScrollbar: true },
-                    mode: 'css',
-                    hintOptions:{
-                        completeSingle: false
-                    }
                 }
             },
 
@@ -210,11 +205,12 @@
           changed1: function (code) {
             this.form.css = code;
             console.log( code)
-          },
-          changed2: function (code) {
-            this.form.html= code;
-            console.log( code)
           }
+          // ,
+          // changed2: function (code) {
+          //   this.form.html= code;
+          //   console.log( code)
+          // }
         },
             beforeMount () {
                 // 读取本地缓存 刷新后还存在
@@ -240,7 +236,26 @@
         });
 
     </script>
+ <script type="text/javascript"> 
+ 
+    var ue = UE.getEditor('container');
+        ue.addListener( 'ready', function( editor ) {
+             UE.getEditor('container').setHeight(300)
+        } );
+        // ue.render(Element containerDom)
+         UE.getEditor('container').addListener("contentChange",function(){
+            app.form.html=UE.getEditor('container').getContent();
+              console.log(UE.getEditor('container').getContent())
+         })
 
+       function getContent() {
+       
+      UE.getEditor('container').getContent();
+      console.log(UE.getEditor('container').getContentTxt())
+      alert(UE.getEditor('container').getContentTxt())
+       
+    }
+    </script>
      <script>
             $(function(){
                 new Clipboard('#copyBtn', {
