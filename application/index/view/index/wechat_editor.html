@@ -89,7 +89,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <form class="form-inline" name="parse" action="{:url('parse')}" target="afterParse">
+                <form class="form-inline" name="parse" action="{:url('parse')}" target="afterParse" method="POST">
                     <fieldset style="width: 100%">
                         <div class="box">
                             <div class="box1">
@@ -165,6 +165,31 @@
     <script src="__STATIC__/ueditor/ueditor.config.js"></script>
     <script src="__STATIC__/ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript">
+        /**
+         *
+         * @param fn {Function}   实际要执行的函数
+         * @param delay {Number}  延迟时间，单位是毫秒（ms）
+         *
+         * @return {Function}     返回一个“防反跳”了的函数
+         */
+        function debounce(fn, delay) {
+            // 定时器，用来 setTimeout
+            var timer
+            // 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数
+            return function () {
+                // 保存函数调用时的上下文和参数，传递给 fn
+                var context = this
+                var args = arguments
+                // 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn
+                clearTimeout(timer)
+                // 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），
+                // 再过 delay 毫秒就执行 fn
+                timer = setTimeout(function () {
+                    fn.apply(context, args)
+                }, delay)
+            }
+        }
+
         var ue = UE.getEditor('container');
         function getContent() {
             ue.getContent();
@@ -237,14 +262,17 @@
             watch: {
                 form: {
                     handler: function (newVal, oldVal) {
-                        var $form = $('[name=parse]');
-                        // $.post($form.attr('action'), app.form, function (response) {
-                        //     console.log(response);
-                        //     app.afterParse = response;
-                        // }, 'json');
-                        $form.find('[name=html]').val(newVal.html);
-                        $form.submit();
-                        localStorage.setItem('cache', JSON.stringify(app.form));
+                        function delay (newVal, app){
+                             var $form = $('[name=parse]');
+                            // $.post($form.attr('action'), app.form, function (response) {
+                            //     console.log(response);
+                            //     app.afterParse = response;
+                            // }, 'json');
+                            $form.find('[name=html]').val(newVal.html);
+                            $form.submit();
+                            localStorage.setItem('cache', JSON.stringify(app.form));
+                        }
+                        debounce(delay(newVal,app), 2000);
                     },
                     deep: true
                 }
