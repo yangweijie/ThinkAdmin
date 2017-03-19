@@ -151,29 +151,29 @@
                                 <legend>选项：</legend>
                                 <div>
                                     <div class="checkbox">
-                                        <label>
-                                     <input type="checkbox" name="param[cleanup]" value="1" v-model="form.param.cleanup"> cleanup
-                                </label>
+                                        <label title="是否生成的代码是清理过的">
+                                            <input type="checkbox" name="param[cleanup]" value="1" v-model="form.param.cleanup"> cleanup
+                                        </label>
                                     </div>
                                     <div class="checkbox">
-                                        <label>
-                                     <input type="checkbox" name="param[useInlineStylesBlock]" value="1" v-model="form.param.useInlineStylesBlock"> useInlineStylesBlock
-                                </label>
+                                        <label title="使用内联样式块作为CSS">
+                                            <input type="checkbox" name="param[useInlineStylesBlock]" value="1" v-model="form.param.useInlineStylesBlock"> 使用内联样式块
+                                        </label>
                                     </div>
                                     <div class="checkbox">
-                                        <label>
-                                     <input type="checkbox" name="param[stripOriginalStyleTags]" value="1" v-model="form.param.stripOriginalStyleTags"> stripOriginalStyleTags
-                                </label>
+                                        <label title="清除原始style 标签">
+                                            <input type="checkbox" name="param[stripOriginalStyleTags]" value="1" v-model="form.param.stripOriginalStyleTags" > 清除原始style 标签
+                                        </label>
                                     </div>
                                     <div class="checkbox">
-                                        <label>
-                                     <input type="checkbox" name="param[excludeMediaQueries]" value="1" v-model="form.param.excludeMediaQueries"> excludeMediaQueries
-                                </label>
+                                        <label title="Exclude media queries from extra 'css'' and keep media queries for inline-styles block">
+                                            <input type="checkbox" name="param[excludeMediaQueries]" value="1" v-model="form.param.excludeMediaQueries"> 排除媒体查询
+                                        </label>
                                     </div>
                                     <div class="checkbox">
-                                        <label>
-                                     <input type="checkbox" name="param[excludeConditionalInlineStylesBlock]" value="1" v-model="form.param.excludeConditionalInlineStylesBlock"> excludeConditionalInlineStylesBlock
-                                </label>
+                                        <label title="Exclude conditional inline-style blocks">
+                                            <input type="checkbox" name="param[excludeConditionalInlineStylesBlock]" value="1" v-model="form.param.excludeConditionalInlineStylesBlock"> 排除行内 条件判断
+                                        </label>
                                     </div>
                                     <br>
                                     <br>
