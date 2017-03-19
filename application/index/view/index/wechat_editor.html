@@ -64,6 +64,7 @@
 
         .box2 {
             float: right;
+            width:50%;
         }
 
         .box2 ul li {
@@ -77,9 +78,63 @@
             height: 50px;
         }
     </style>
+    <style>
+        body.edit_fixed .edui-editor-toolbarbox {
+            box-shadow: 0 1px 3px #f8f8f8;
+            -moz-box-shadow: 0 1px 3px #f8f8f8;
+            -webkit-box-shadow: 0 1px 3px #f8f8f8
+        }
+        .appmsg_input_area .edui_toolbar_mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.5)!important;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80ffffff',endcolorstr = '#80ffffff')
+        }
+
+        .appmsg_input_area .edui_quote_tips {
+            background: transparent url(/mpres/htmledition/images/icon/ueditor/icon_edui_quote_tips.png?__sprite) no-repeat 0 0;
+            width: 54px;
+            height: 23px;
+            vertical-align: middle;
+            display: inline-block;
+            line-height: 300px;
+            overflow: hidden
+        }
+
+        .appmsg_input_area .edui_editor_wrp {
+            position: relative;
+            z-index: 0;
+            min-height: 320px
+        }
+
+        .appmsg_input_area .edui-default .edui-editor {
+            border-width: 0
+        }
+
+        .appmsg_input_area .edui-default .edui-toolbar {
+            padding: 10px 45px
+        }
+
+        .appmsg_input_area .edui-default .edui-toolbar-primary {
+            padding-bottom: 0;
+            border-bottom-width: 0
+        }
+
+        .appmsg_input_area .editor_area .editor_content_placeholder {
+            position: absolute;
+            left: 90px;
+            right: 90px;
+            color: #a3a3a3;
+            padding-top: 10px
+        }
+    </style>
 </head>
 
-<body>
+<body class="edit_fixed">
     <div class="container" v-cloak id="app">
         <div class="title">
             前端微信图文消息代码生成器
@@ -131,10 +186,10 @@
                                         <li>1.避免使用a标签(a标签被过滤)</li>
                                         <li>2.定位样式会被过滤</li>
                                         <li>3.外部样式会被过滤</li>
-                                        <li>4.表单项只有select可以显示其他失效</li>
+                                        <li>4.表单项只有select可以显示，其他失效</li>
                                         <li>5.h标签样式被重写</li>
                                         <li>6.表格被美化</li>
-                                        <li>7.img地址必须在素材库</li>
+                                        <li>7.发布时img地址必须在素材库</li>
                                     </ul>
                                 </div>
                             </div>
@@ -147,9 +202,11 @@
                             <textarea v-model="form.css" style="display: none;" name="css"></textarea>
                         </div>
                         <h3>html内容：</h3>
+                        <div class="appmsg_input_area">
                         <script id="container" name="content" type="text/plain"></script>
                         <textarea v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
-                        <button onclick="getContent()">获得内容</button>
+                        </div>
+                        <!--<button onclick="getContent()">获得内容</button>-->
                     </fieldset>
                 </form>
             </div>
@@ -289,7 +346,9 @@
             new Clipboard('#copyBtn', {
                 text: function (trigger) {
                     var inner = $($(document.getElementById('afterParse').contentWindow.document.body).html()).find('#js_content').html();
-                    console.log(inner);
+                    alert('代码已经复制到剪切板中');
+                    // var about_blank = window.open('about:blank',"new_win");
+                    // about_blank.document.write('<textarea>'+inner+'</textarea>');
                     return inner;
                 }
             });
