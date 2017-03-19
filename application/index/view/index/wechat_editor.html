@@ -190,7 +190,11 @@
             }
         }
 
-        var ue = UE.getEditor('container');
+        var ue = UE.getEditor('container',{
+             autoHeightEnabled: false,
+             initialFrameHeight:300,
+            //  toolbars:toolbar
+        });
         function getContent() {
             ue.getContent();
             console.log(ue.getContentTxt())
@@ -249,7 +253,7 @@
                     this.form = JSON.parse(cache);
                 }
                 ue.addListener('ready', function (editor) {
-                    ue.setHeight(300);
+                    // ue.setHeight(300);
                     ue.setContent(app.form.html);
                 });
                 // ue.render(Element containerDom)
