@@ -24,10 +24,12 @@
             display: inline;
             width: 50%;
         }
-        .title{
+
+        .title {
             background-color: yellow;
         }
-        .CodeMirror{
+
+        .CodeMirror {
             width: 585px;
         }
     </style>
@@ -36,143 +38,146 @@
     <script src="__STATIC__/admin/js/core/bootstrap.min.js"></script>
     <!--<script src="__STATIC__/libs/prism/prism.js"></script>-->
     <script src="__STATIC__/libs/vue.min.js"></script>
-    <script src="__STATIC__/libs/lodash.core.js"></script>
     <script src="__STATIC__/libs/clipboard.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="__STATIC__/libs/demo/bundle.js"></script>
     <script src="__STATIC__/libs/demo/0.js"></script>
-
- <!--    <script src="__STATIC__/ueditor/demo/0.js"></script> -->
- <!--    <script src="__STATIC__/hint/codemirror.js"></script>
-    <script src="__STATIC__/hint/css.js"></script>
-    <script src="__STATIC__/hint/show-hint.js"></script>
-    <script src="__STATIC__/hint/css-hint.js"></script> -->
     <script>
 
     </script>
-    <style>.CodeMirror {background: #f8f8f8;}
-    fieldset{
-        overflow: hidden;
-    }
-    .box{
-        overflow: hidden;
-    }
-    .box1{
-        float: left;
-        width: 50%;
-    }
-    .box2{
-        float: right;
-    }
-    .box2 ul li{
-      list-style: none;
-    }
-    #copyBtn{
-        display: block;
-        margin: 0 auto;
-        width:100px;
-        height: 50px;
-    }
+    <style>
+        .CodeMirror {
+            background: #f8f8f8;
+        }
+
+        fieldset {
+            overflow: hidden;
+        }
+
+        .box {
+            overflow: hidden;
+        }
+
+        .box1 {
+            float: left;
+            width: 50%;
+        }
+
+        .box2 {
+            float: right;
+        }
+
+        .box2 ul li {
+            list-style: none;
+        }
+
+        #copyBtn {
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+            height: 50px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container" v-cloak id="app">
-    <div class="title">
-    前端微信图文消息代码生成器
-       <!--  <ul>
+        <div class="title">
+            前端微信图文消息代码生成器
+            <!--  <ul>
             <li></li>
         </ul> -->
-    </div>
+        </div>
         <div class="row">
             <div class="col-lg-6">
                 <form class="form-inline" name="parse" action="{:url('parse')}" target="afterParse">
                     <fieldset style="width: 100%">
-                    <div class="box">
-                    <div class="box1">
-                        <legend>选项：</legend>
-                        <div>
-                            <div class="checkbox">
-                                <label>
+                        <div class="box">
+                            <div class="box1">
+                                <legend>选项：</legend>
+                                <div>
+                                    <div class="checkbox">
+                                        <label>
                                      <input type="checkbox" name="param[cleanup]" value="1" v-model="form.param.cleanup"> cleanup
                                 </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                      <input type="checkbox" name="param[useInlineStylesBlock]" value="1" v-model="form.param.useInlineStylesBlock"> useInlineStylesBlock
                                 </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                      <input type="checkbox" name="param[stripOriginalStyleTags]" value="1" v-model="form.param.stripOriginalStyleTags"> stripOriginalStyleTags
                                 </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                      <input type="checkbox" name="param[excludeMediaQueries]" value="1" v-model="form.param.excludeMediaQueries"> excludeMediaQueries
                                 </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                      <input type="checkbox" name="param[excludeConditionalInlineStylesBlock]" value="1" v-model="form.param.excludeConditionalInlineStylesBlock"> excludeConditionalInlineStylesBlock
                                 </label>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
                             </div>
-                            <br>
-                            <br>
-                        </div>  
-                    </div>
-                        <div class="box2"> 
-                            <legend>注意事项：</legend>
-                            <div>
-                                <ul>
-                                    <li>1.避免使用a标签(a标签被过滤)</li>
-                                    <li>2.定位样式会被过滤</li>
-                                    <li>3.外部样式会被过滤</li>
-                                    <li>4.表单项只有select可以显示其他失效</li>
-                                    <li>5.h标签样式被重写</li>
-                                    <li>6.表格被美化</li>
-                                    <li>7.img地址必须在素材库</li>
-                                </ul>
+                            <div class="box2">
+                                <legend>注意事项：</legend>
+                                <div>
+                                    <ul>
+                                        <li>1.避免使用a标签(a标签被过滤)</li>
+                                        <li>2.定位样式会被过滤</li>
+                                        <li>3.外部样式会被过滤</li>
+                                        <li>4.表单项只有select可以显示其他失效</li>
+                                        <li>5.h标签样式被重写</li>
+                                        <li>6.表格被美化</li>
+                                        <li>7.img地址必须在素材库</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>     <div style="clear: both;"></div>
-                       </div>
-                  
+                            <div style="clear: both;"></div>
+                        </div>
+
                         <h3>CSS样式：</h3>
                         <div class="form-group">
-                           <codemirror :code="form.css" @changed="changed1" :options="options1"></codemirror>
-                           <textarea v-model="form.css" style="display: none;" name="css"></textarea>
+                            <codemirror :code="form.css" @changed="changed1" :options="cm_options"></codemirror>
+                            <textarea v-model="form.css" style="display: none;" name="css"></textarea>
                         </div>
                         <h3>html内容：</h3>
-                          <script id="container" name="content" type="text/plain">dssdsd</script>
-                        <textarea  v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
-                         <button onclick="getContent()">获得内容</button>
+                        <script id="container" name="content" type="text/plain"></script>
+                        <textarea v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
+                        <button onclick="getContent()">获得内容</button>
                     </fieldset>
                 </form>
             </div>
             <div class="col-lg-6">
-               <div>
-                   <iframe src="{:url('parse')}" frameborder="0" name="afterParse" height="777" width="100%" id="afterParse"></iframe>
-                   <button id="copyBtn">复制代码</button>
-               </div>
+                <div>
+                    <iframe src="{:url('parse')}" frameborder="0" name="afterParse" height="777" width="100%" id="afterParse"></iframe>
+                    <button id="copyBtn">复制代码</button>
+                </div>
             </div>
         </div>
     </div>
 
-  
     <script src="__STATIC__/ueditor/ueditor.config.js"></script>
     <script src="__STATIC__/ueditor/ueditor.all.min.js"></script>
-
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+        function getContent() {
+            ue.getContent();
+            console.log(ue.getContentTxt())
+            return ue.getContent();
+        }
+    </script>
     <script>
-
-      // var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-      //   extraKeys: {"Ctrl-Space": "autocomplete"}
-      // });
-    
-      Vue.use(CodeMirror)
+        Vue.use(CodeMirror);
         var app = new Vue({
             el: '#app',
             data: {
-                code:"",
+                code: "",
                 form: {
                     param: {
                         cleanup: false,
@@ -185,7 +190,7 @@
                     html: '',
                 },
                 afterParse: '',
-                options1: {
+                cm_options: {
                     tabSize: 4,
                     styleActiveLine: true,
                     lineNumbers: true,
@@ -195,29 +200,39 @@
                     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
                     highlightSelectionMatches: { showToken: /w/, annotateScrollbar: true },
                     mode: 'css',
-                    hintOptions:{
+                    hintOptions: {
                         completeSingle: false
                     }
                 }
             },
 
-        methods: {
-          changed1: function (code) {
-            this.form.css = code;
-            console.log( code)
-          }
-          // ,
-          // changed2: function (code) {
-          //   this.form.html= code;
-          //   console.log( code)
-          // }
-        },
-            beforeMount () {
+            methods: {
+                changed1: function (code) {
+                    this.form.css = code;
+                    console.log(code)
+                }
+                // ,
+                // changed2: function (code) {
+                //   this.form.html= code;
+                //   console.log( code)
+                // }
+            },
+            beforeMount() {
                 // 读取本地缓存 刷新后还存在
                 var cache = localStorage.getItem('cache');
-                if(cache){
+                if (cache) {
                     this.form = JSON.parse(cache);
                 }
+                ue.addListener('ready', function (editor) {
+                    ue.setHeight(300);
+                    ue.setContent(app.form.html);
+                });
+                // ue.render(Element containerDom)
+                ue.addListener("contentChange", function () {
+                    app.form.html = ue.getContent();
+                    console.log(ue.getContent())
+                });
+
             },
             watch: {
                 form: {
@@ -227,6 +242,7 @@
                         //     console.log(response);
                         //     app.afterParse = response;
                         // }, 'json');
+                        $form.find('[name=html]').val(newVal.html);
                         $form.submit();
                         localStorage.setItem('cache', JSON.stringify(app.form));
                     },
@@ -234,39 +250,19 @@
                 }
             }
         });
-
     </script>
- <script type="text/javascript"> 
- 
-    var ue = UE.getEditor('container');
-        ue.addListener( 'ready', function( editor ) {
-             UE.getEditor('container').setHeight(300)
-        } );
-        // ue.render(Element containerDom)
-         UE.getEditor('container').addListener("contentChange",function(){
-            app.form.html=UE.getEditor('container').getContent();
-              console.log(UE.getEditor('container').getContent())
-         })
 
-       function getContent() {
-       
-      UE.getEditor('container').getContent();
-      console.log(UE.getEditor('container').getContentTxt())
-      alert(UE.getEditor('container').getContentTxt())
-       
-    }
-    </script>
-     <script>
-            $(function(){
-                new Clipboard('#copyBtn', {
-                    text: function(trigger) {
-                        var inner = $($(document.getElementById('afterParse').contentWindow.document.body).html()).find('#js_content').html();
-                        console.log(inner);
-                        return inner;
-                    }
-                });
+    <script>
+        $(function () {
+            new Clipboard('#copyBtn', {
+                text: function (trigger) {
+                    var inner = $($(document.getElementById('afterParse').contentWindow.document.body).html()).find('#js_content').html();
+                    console.log(inner);
+                    return inner;
+                }
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

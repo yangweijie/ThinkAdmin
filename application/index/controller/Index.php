@@ -24,6 +24,7 @@ class Index extends Home
     // 老杨微信公众号文章编辑器——最好的公众号前端编辑器
     public function index()
     {
+        config('app_trace', 0);
         return $this->fetch('wechat_editor');
     }
 
@@ -33,17 +34,18 @@ class Index extends Home
      * @param array $param
      * @return string
      */
-    public function parse($html, $css, $param='')
+    public function parse($html, $css, $param = '')
     {
-        config('trace.type', 'console');
+        config('app_trace', 0);
+        // config('trace.type', 'console');
         $default = [
-            'cleanup'=>0,
-            'useInlineStylesBlock'=>0,
-            'stripOriginalStyleTags'=>0,
-            'excludeMediaQueries'=>1,
-            'excludeConditionalInlineStylesBlock'=>1,
+            'cleanup' => 0,
+            'useInlineStylesBlock' => 0,
+            'stripOriginalStyleTags' => 0,
+            'excludeMediaQueries' => 1,
+            'excludeConditionalInlineStylesBlock' => 1,
         ];
-        $param = $param? array_merge($default, $param): $default;
+        $param = $param ? array_merge($default, $param) : $default;
 
         // The following properties exists and have set methods available:
 
