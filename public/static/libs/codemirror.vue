@@ -55,6 +55,7 @@ export default {
   created () {
     // Require language mode config & basic addons.
     require(`codemirror/mode/javascript/javascript.js`)
+     require(`codemirror/mode/css/css.js`)
     require('codemirror/addon/lint/lint.js')
     require('codemirror/addon/lint/lint.css')
     require('codemirror/addon/lint/javascript-lint.js')
