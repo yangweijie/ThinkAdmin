@@ -26,7 +26,11 @@
         }
 
         .title {
-            background-color: yellow;
+           /* background-color: yellow;*/
+           text-align: center;
+           font-size: 24px;
+           border-bottom: 1px solid #ccc;
+           line-height: 2em;
         }
 
         .CodeMirror {
@@ -45,6 +49,9 @@
 
     </script>
     <style>
+    .edui-default .edui-toolbar .edui-button .edui-icon, .edui-default .edui-toolbar .edui-menubutton .edui-icon, .edui-default .edui-toolbar .edui-splitbutton .edui-icon {
+ 
+}
         .CodeMirror {
             background: #f8f8f8;
         }
@@ -136,12 +143,12 @@
 
 <body class="edit_fixed">
     <div class="container" v-cloak id="app">
-        <div class="title">
-            前端微信图文消息代码生成器
+        <h1 class="title">
+            微信图文编辑——专为前端使用
             <!--  <ul>
             <li></li>
         </ul> -->
-        </div>
+        </h1>
         <div class="row">
             <div class="col-lg-6">
                 <form class="form-inline" name="parse" action="{:url('parse')}" target="afterParse" method="POST">

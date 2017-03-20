@@ -159,7 +159,7 @@ div.edui-box {
     border-bottom: 1px solid #d4d4d4;
     background-color: #fafafa;
     background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#f6f6f6));
     background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
     background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
     background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
@@ -486,7 +486,7 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-splitbutton .edui-icon {
     height: 20px !important;
     width: 20px !important;
-    background-image: url(../images/icons.png);
+    background-image: url(../images/ueditor_z29f4d5.png);
     background-image: url(../images/icons.gif) \9;
 }
 
@@ -525,26 +525,26 @@ div.edui-box {
 
 /* toolbar icons */
 .edui-default .edui-for-undo .edui-icon {
-    background-position: -160px 0;
+    background-position: 2px -166px;
 }
 
 .edui-default  .edui-for-redo .edui-icon {
-    background-position: -100px 0;
+    background-position: 2px -196px;
 }
 
 .edui-default  .edui-for-bold .edui-icon {
-    background-position: 0 0;
+      background-position: 4px -230px;
 }
 
 .edui-default  .edui-for-italic .edui-icon {
-    background-position: -60px 0;
+    background-position: 4px -259px;
 }
 
 .edui-default  .edui-for-fontborder .edui-icon {
     background-position:-160px -40px;
 }
 .edui-default  .edui-for-underline .edui-icon {
-    background-position: -140px 0;
+    background-position: 4px -290px;
 }
 
 .edui-default  .edui-for-strikethrough .edui-icon {
@@ -560,15 +560,15 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-blockquote .edui-icon {
-    background-position: -220px 0;
+    background-position: 2px -323px;
 }
 
 .edui-default  .edui-for-forecolor .edui-icon {
-    background-position: -720px 0;
+    background-position: 4px -348px;
 }
 
 .edui-default  .edui-for-backcolor .edui-icon {
-    background-position: -760px 0;
+    background-position: 1px -380px;
 }
 
 .edui-default  .edui-for-inserttable .edui-icon {
@@ -580,43 +580,43 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-justifyleft .edui-icon {
-    background-position: -460px 0;
+    background-position: 1px -408px;
 }
 
 .edui-default  .edui-for-justifycenter .edui-icon {
-    background-position: -420px 0;
+    background-position: 0 -438px;
 }
 
 .edui-default  .edui-for-justifyright .edui-icon {
-    background-position: -480px 0;
+    background-position: 1px -468px;
 }
 
 .edui-default  .edui-for-justifyjustify .edui-icon {
-    background-position: -440px 0;
+    background-position: 1px -499px;
 }
 
 .edui-default  .edui-for-insertorderedlist .edui-icon {
-    background-position: -80px 0;
+    background-position: 0px -530px;
 }
 
 .edui-default  .edui-for-insertunorderedlist .edui-icon {
-    background-position: -20px 0;
+    background-position: 1px -559px;
 }
 
 .edui-default  .edui-for-lineheight .edui-icon {
-    background-position: -725px -40px;
+    background-position: 2px -590px;
 }
 
 .edui-default  .edui-for-rowspacingbottom .edui-icon {
-    background-position: -745px -40px;
+    background-position: 2px -620px;
 }
 
 .edui-default  .edui-for-rowspacingtop .edui-icon {
-    background-position: -765px -40px;
+    background-position: 2px -651px;
 }
 
 .edui-default  .edui-for-horizontal .edui-icon {
-    background-position: -360px 0;
+    background-position:2px -685px;
 }
 
 .edui-default  .edui-for-link .edui-icon {
@@ -628,7 +628,7 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-insertimage .edui-icon {
-    background-position: -726px -77px;
+    background-position: 0px -742px;
 }
 
 .edui-default  .edui-for-insertframe .edui-icon {
@@ -696,7 +696,7 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-formatmatch .edui-icon {
-    background-position: -40px 0;
+      background-position: -2px -861px;
 }
 
 .edui-default  .edui-for-pasteplain .edui-icon {
@@ -712,11 +712,12 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-source .edui-icon {
+    background-image: url(../images/icons.png) !important;
     background-position: -261px -0px;
 }
 
 .edui-default  .edui-for-removeformat .edui-icon {
-    background-position: -580px 0;
+    background-position:1px -891px;
 }
 
 .edui-default  .edui-for-unlink .edui-icon {
@@ -804,11 +805,11 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-imagenone .edui-icon {
-    background-position: -480px -40px;
+    background-position: 1px -953px;
 }
 
 .edui-default  .edui-for-imageleft .edui-icon {
-    background-position: -500px -40px;
+    background-position: 1px -982px;
 }
 
 .edui-default  .edui-for-wordimage .edui-icon {
@@ -816,15 +817,16 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-imageright .edui-icon {
-    background-position: -520px -40px;
+     background-position: 1px -1013px;
 }
 
 .edui-default  .edui-for-imagecenter .edui-icon {
-    background-position: -540px -40px;
+    background-position: 1px -1042px;
 }
 
 .edui-default  .edui-for-indent .edui-icon {
-    background-position: -400px 0;
+    /*background-position: -400px 0;*/
+        background-image: url(../images/icon_edui_indent.png) !important;
 }
 
 .edui-default  .edui-for-outdent .edui-icon {
@@ -1764,7 +1766,9 @@ div.edui-box {
 /*表情按钮及弹出菜单*/
 /*去除了表情的下拉箭头*/
 .edui-default .edui-for-emotion .edui-icon {
-    background-position: -60px -20px;
+     background: url(../images/image.png) no-repeat center !important;
+/*     -webkit-filter: invert(100%);filter: invert(100%);
+    background-position: -60px -20px;*/
 }
 .edui-default .edui-for-emotion .edui-popup-content iframe
 {
