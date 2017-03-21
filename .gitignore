@@ -6,4 +6,3 @@ composer.lock
 /.buildpath
 /.project
 *.log
-/vendor/

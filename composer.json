@@ -17,17 +17,10 @@
     ],
     "require": {
         "php": ">=5.6.0",
-        "ext-gd":"*",
-        "topthink/framework": "^5.0.1",
-        "topthink/think-captcha": "^1.0.7",
-        "topthink/think-testing": "^1.0",
-        "topthink/think-helper": "^1.0",
-        "voku/css-to-inline-styles": "^1.6"
+        "topthink/framework": "dev-master",
+        "yunwuxin/think-log-viewer": "dev-master"
     },
     "extra": {
         "think-path": "thinkphp"
-    },
-    "config": {
-        "preferred-install": "dist"
     }
 }
