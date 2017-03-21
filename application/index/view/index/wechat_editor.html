@@ -16,9 +16,13 @@
     <!-- END Icons -->
     <!-- Stylesheets -->
     <link rel="stylesheet" href="__STATIC__/admin/css/bootstrap.min.css">
-    <link rel="stylesheet" href="__STATIC__/hint/codemirror.css">
-    <link rel="stylesheet" href="__STATIC__/hint/show-hint.css">
-    <!--<link rel="stylesheet" href="__STATIC__/libs/prism/prism.css">-->
+
+    <link rel="stylesheet" href="__STATIC__/libs/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="__STATIC__/libs/codemirror/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="__STATIC__/libs/codemirror/addon/fold/foldgutter.css" />
+    <link rel="stylesheet" href="__STATIC__/libs/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="__STATIC__/libs/codemirror/addon/scroll/simplescrollbars.css">
+
     <style>
         fieldset {
             display: inline;
@@ -26,11 +30,11 @@
         }
 
         .title {
-           /* background-color: yellow;*/
-           text-align: center;
-           font-size: 24px;
-           border-bottom: 1px solid #ccc;
-           line-height: 2em;
+            /* background-color: yellow;*/
+            text-align: center;
+            font-size: 24px;
+            border-bottom: 1px solid #ccc;
+            line-height: 2em;
         }
 
         .CodeMirror {
@@ -43,15 +47,33 @@
     <!--<script src="__STATIC__/libs/prism/prism.js"></script>-->
     <script src="__STATIC__/libs/vue.min.js"></script>
     <script src="__STATIC__/libs/clipboard.min.js"></script>
-    <script src="__STATIC__/libs/demo/bundle.js"></script>
-    <script src="__STATIC__/libs/demo/0.js"></script>
+
+    <script src="__STATIC__/libs/codemirror/lib/codemirror.js"></script>
+    <script src="__STATIC__/libs/codemirror/lib/codemirror.js"></script>
+    <script src="__STATIC__/libs/codemirror/mode/css/css.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/foldcode.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/xml-fold.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/indent-fold.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/markdown-fold.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/fold/comment-fold.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/hint/show-hint.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/hint/css-hint.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/display/fullscreen.js"></script>
+    <script src="__STATIC__/libs/codemirror/addon/scroll/simplescrollbars.js"></script>
     <script>
 
     </script>
     <style>
-    .edui-default .edui-toolbar .edui-button .edui-icon, .edui-default .edui-toolbar .edui-menubutton .edui-icon, .edui-default .edui-toolbar .edui-splitbutton .edui-icon {
- 
-}
+        .edui-default .edui-toolbar .edui-button .edui-icon,
+        .edui-default .edui-toolbar .edui-menubutton .edui-icon,
+        .edui-default .edui-toolbar .edui-splitbutton .edui-icon {}
+
+        .title {
+            margin-top: 0;
+        }
+
         .CodeMirror {
             background: #f8f8f8;
         }
@@ -71,7 +93,11 @@
 
         .box2 {
             float: right;
-            width:50%;
+            width: 50%;
+        }
+
+        .box2 ul {
+            padding-left: 0
         }
 
         .box2 ul li {
@@ -91,6 +117,7 @@
             -moz-box-shadow: 0 1px 3px #f8f8f8;
             -webkit-box-shadow: 0 1px 3px #f8f8f8
         }
+
         .appmsg_input_area .edui_toolbar_mask {
             display: none;
             position: absolute;
@@ -98,8 +125,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.5)!important;
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80ffffff',endcolorstr = '#80ffffff')
+            background: rgba(255, 255, 255, 0.5)!important;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80ffffff', endcolorstr='#80ffffff')
         }
 
         .appmsg_input_area .edui_quote_tips {
@@ -145,9 +172,6 @@
     <div class="container" v-cloak id="app">
         <h1 class="title">
             微信图文编辑——专为前端使用
-            <!--  <ul>
-            <li></li>
-        </ul> -->
         </h1>
         <div class="row">
             <div class="col-lg-6">
@@ -182,6 +206,11 @@
                                             <input type="checkbox" name="param[excludeConditionalInlineStylesBlock]" value="1" v-model="form.param.excludeConditionalInlineStylesBlock"> 排除行内 条件判断
                                         </label>
                                     </div>
+                                    <div class="checkbox">
+                                        <label title="copy and open to preview">
+                                            <input type="checkbox" name="param[openToPreview]" value="1" v-model="form.param.openToPreview"> 复制并新窗口显示(适用于Email，不包含微信公众号文章样式)
+                                        </label>
+                                    </div>
                                     <br>
                                     <br>
                                 </div>
@@ -205,13 +234,48 @@
 
                         <h3>CSS样式：</h3>
                         <div class="form-group">
-                            <codemirror :code="form.css" @changed="changed1" :options="cm_options"></codemirror>
+                            <textarea id="css" name="css">
+/* Some example CSS */
+
+@import url("something.css");
+
+body {
+  margin: 0;
+  padding: 3em 6em;
+  font-family: tahoma, arial, sans-serif;
+  color: #000;
+}
+
+#navigation a {
+  font-weight: bold;
+  text-decoration: none !important;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 1.7em;
+}
+
+h1:before, h2:before {
+  content: "::";
+}
+
+code {
+  font-family: courier, monospace;
+  font-size: 80%;
+  color: #418A8A;
+}
+</textarea>
+                            <!--<codemirror :code="form.css" @changed="changed1" :options="cm_options"></codemirror>-->
                             <textarea v-model="form.css" style="display: none;" name="css"></textarea>
                         </div>
                         <h3>html内容：</h3>
                         <div class="appmsg_input_area">
-                        <script id="container" name="content" type="text/plain"></script>
-                        <textarea v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
+                            <script id="container" name="content" type="text/plain"></script>
+                            <textarea v-model="form.html" name="html" cols="80" rows="10" style="display: none;"></textarea>
                         </div>
                         <!--<button onclick="getContent()">获得内容</button>-->
                     </fieldset>
@@ -254,9 +318,9 @@
             }
         }
 
-        var ue = UE.getEditor('container',{
-             autoHeightEnabled: false,
-             initialFrameHeight:300,
+        var ue = UE.getEditor('container', {
+            autoHeightEnabled: false,
+            initialFrameHeight: 300,
             //  toolbars:toolbar
         });
         function getContent() {
@@ -266,11 +330,10 @@
         }
     </script>
     <script>
-        Vue.use(CodeMirror);
         var app = new Vue({
             el: '#app',
             data: {
-                code: "",
+                editor: null,
                 form: {
                     param: {
                         cleanup: false,
@@ -278,6 +341,7 @@
                         stripOriginalStyleTags: false,
                         excludeMediaQueries: true,
                         excludeConditionalInlineStylesBlock: true,
+                        openToPreview: false
                     },
                     css: '',
                     html: '',
@@ -300,11 +364,6 @@
             },
 
             methods: {
-                changed1: function (code) {
-                    this.form.css = code;
-                    console.log(code)
-                }
-                // ,
                 // changed2: function (code) {
                 //   this.form.html= code;
                 //   console.log( code)
@@ -327,20 +386,59 @@
                 });
 
             },
+            mounted: function () {
+                this.editor = CodeMirror.fromTextArea(document.getElementById("css"), {
+                    styleActiveLine: true,
+                    theme: 'monokai',
+                    matchBrackets: true,
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    extraKeys: {
+                        "Ctrl-Space": "autocomplete",
+                        "Ctrl-Q": function (cm) {
+                            cm.foldCode(cm.getCursor());
+                        },
+                        "F11": function (cm) {
+                            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                        },
+                        "Esc": function (cm) {
+                            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                        }
+                    },
+                    scrollbarStyle: "simple",
+                    foldGutter: true,
+                    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                    change: function (cm, changObj) {
+                        console.log(cm);
+                        console.log(changObj);
+                    }
+                });
+                var app = this;
+                this.editor.on('change', function (cm) {
+                    var css = cm.getValue();
+                    if (!!this.$emit) {
+                        this.$emit('changed', css);
+                        this.$emit('input', css);
+                    }
+                    app.form.css = css;
+                });
+                this.editor.setValue(this.form.css);
+            },
             watch: {
                 form: {
                     handler: function (newVal, oldVal) {
-                        function delay (newVal, app){
-                             var $form = $('[name=parse]');
+                        function delay(newVal, app) {
+                            var $form = $('[name=parse]');
                             // $.post($form.attr('action'), app.form, function (response) {
                             //     console.log(response);
                             //     app.afterParse = response;
                             // }, 'json');
                             $form.find('[name=html]').val(newVal.html);
+                            // alert(newVal.css);
                             $form.submit();
                             localStorage.setItem('cache', JSON.stringify(app.form));
                         }
-                        debounce(delay(newVal,app), 2000);
+                        debounce(delay(newVal, app), 2000);
                     },
                     deep: true
                 }
@@ -354,8 +452,10 @@
                 text: function (trigger) {
                     var inner = $($(document.getElementById('afterParse').contentWindow.document.body).html()).find('#js_content').html();
                     alert('代码已经复制到剪切板中');
-                    // var about_blank = window.open('about:blank',"new_win");
-                    // about_blank.document.write('<textarea>'+inner+'</textarea>');
+                    if (app.form.param.openToPreview) {
+                        var about_blank = window.open('about:blank', 'new_win');
+                        about_blank.document.write('<code>' + inner + '</code>');
+                    }
                     return inner;
                 }
             });

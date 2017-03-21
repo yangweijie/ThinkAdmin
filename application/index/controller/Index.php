@@ -91,4 +91,8 @@ class Index extends Home
     {
         return $this->fetch();
     }
+
+    public function css(){
+        return $this->fetch();
+    }
 }
