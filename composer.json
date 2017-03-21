@@ -24,12 +24,6 @@
         "topthink/think-helper": "^1.0",
         "voku/css-to-inline-styles": "^1.6"
     },
-    "repositories": {
-      "packagist": {
-          "type": "composer",
-          "url": "https://packagist.composer-proxy.org"
-      }
-  },
     "extra": {
         "think-path": "thinkphp"
     },
@@ -37,44 +31,3 @@
         "preferred-install": "dist"
     }
 }
-
-
-// {
-//     "name": "topthink/think",
-//     "description": "the new thinkphp framework",
-//     "type": "project",
-//     "keywords": [
-//         "framework",
-//         "thinkphp",
-//         "ORM"
-//     ],
-//     "homepage": "http://thinkphp.cn/",
-//     "license": "Apache-2.0",
-//     "authors": [
-//         {
-//             "name": "liu21st",
-//             "email": "liu21st@gmail.com"
-//         }
-//     ],
-//     "require": {
-//         "php": "~7.1.2",
-//         "ext-gd":"*",
-//         "topthink/framework": "^5.0.4",
-//         "topthink/think-captcha": "^1.0",
-//         "topthink/think-image": "^1.0",
-//         "topthink/think-helper": "^1.0",
-//         "voku/css-to-inline-styles": "^1.6"
-//     },
-//     "repositories": {
-//       "packagist": {
-//           "type": "composer",
-//           "url": "https://packagist.composer-proxy.org"
-//       }
-//   },
-//     "extra": {
-//         "think-path": "thinkphp"
-//     },
-//     "config": {
-//         "preferred-install": "dist"
-//     }
-// }
