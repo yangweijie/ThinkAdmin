@@ -16,19 +16,20 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": "~7.1.2",
+        "ext-gd":"*",
         "topthink/framework": "^5.0",
         "topthink/think-captcha": "^1.0",
         "topthink/think-image": "^1.0",
         "topthink/think-helper": "^1.0",
         "voku/css-to-inline-styles": "^1.6"
-    },  
+    },
     "repositories": {
       "packagist": {
           "type": "composer",
           "url": "https://packagist.composer-proxy.org"
       }
-  },  
+  },
     "extra": {
         "think-path": "thinkphp"
     },
