@@ -18,7 +18,7 @@
     "require": {
         "php": "~7.1.2",
         "ext-gd":"*",
-        "topthink/framework": "^5.0",
+        "topthink/framework": "5.0.7",
         "topthink/think-captcha": "^1.0",
         "topthink/think-image": "^1.0",
         "topthink/think-helper": "^1.0",
