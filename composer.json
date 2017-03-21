@@ -24,6 +24,12 @@
         "topthink/think-helper": "^1.0",
         "voku/css-to-inline-styles": "^1.6"
     },
+    "repositories": {
+      "packagist": {
+          "type": "composer",
+          "url": "https://packagist.composer-proxy.org"
+      }
+  },
     "extra": {
         "think-path": "thinkphp"
     },
